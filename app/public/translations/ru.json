@@ -5,6 +5,7 @@
   "choose_text": "Выберите готовый текст",
   "choose_method": "Выберите метод поиска похожих слов",
   "correct_errors": "Исправить ошибки",
+  "cancel_request": "Отменить запрос",
 
   "text_name_1": "Текст 1",
   "text_name_2": "Текст 2",
@@ -15,5 +16,9 @@
 
   "range_label_placeholder": "Сначала выберите метод",
   "range_label_type_1": "Максимальное расстояние:",
-  "range_label_type_2": "Минимальное сходство:"
+  "range_label_type_2": "Минимальное сходство:",
+
+  "correct_all": "Исправить все ошибки",
+  "rollback_corrections": "Откатить все исправления",
+  "save_to_file": "Сохранить в файл"
 }

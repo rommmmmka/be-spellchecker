@@ -1,133 +1,107 @@
-function clearOutput() {
-    results.innerHTML = "";
-}
-
-function getRandomInt(min, max) {
-    const minCeiled = Math.ceil(min);
-    const maxFloored = Math.floor(max);
-    return Math.floor(Math.random() * (maxFloored - minCeiled + 1) + minCeiled);
-}
-
-function displayLoadingAnimation(size) {
-    let loadingAnimationHtml = "";
-    for (let i = 0; i < getRandomInt(10, 15); i++) {
-        loadingAnimationHtml += `<span class="placeholder col-${getRandomInt(1, 4)}"></span> `;
-    }
-    loading_animation.innerHTML = loadingAnimationHtml;
-    results_block.scrollTop = results_block.scrollHeight;
-}
-
-function hideLoadingAnimation() {
-    loading_animation.innerHTML = "";
-}
-
-async function makeApiRequest() {
-    clearOutput();
-    displayLoadingAnimation();
-
-    let textAfterSplit = splitText();
-    let method = (btn_dropdown_method.innerHTML === btn_method_1.innerHTML) ? 1 : 2;
-    states.last_used_method = method;
-
-    request_results = [];
-    for (let i = 0; i < textAfterSplit.length; i++) {
-        try {
-            let response = await fetch(`http://127.0.0.1:5000/api/${method}/${range.value}`, {
-                method: "POST",
-                body: JSON.stringify({
-                    text: textAfterSplit[i]
-                }),
-                headers: {
-                    "Content-type": "application/json; charset=UTF-8"
-                }
-            })
-
-            if (!response.ok) {
-                throw TypeError;
-            }
-
-            // console.log(await response.text());
-            displayApiRequestResults(await response.json());
-            displayLoadingAnimation();
-        }
-        catch (err) {
-            console.log(err)
-            displayApiRequestError();
+function displayTokenInfo(tokenId) {
+    let element = document.getElementById(`res_span_${tokenId}`);
+    switch(element.classList[0]) {
+        case "res_t_slounik":
+            displayTokenInfoSlounik(element);
             break;
-        }
+        case "res_t_empty":
+            displayTokenInfoEmpty(element);
+            break;
+        case "res_t_mistake":
+            displayTokenInfoMistake(element, tokenId);
     }
-    hideLoadingAnimation();
 }
 
-function splitText() {
-    let text = textarea.value;
-    let textAfterSplit = [];
-
-    let previousEnd = 0;
-    while (previousEnd !== text.length) {
-        let newEnd = text.indexOf(" ", previousEnd + 100) + 1;
-        if (newEnd === 0 || text.length - newEnd < 30) {
-            newEnd = text.length;
-        }
-
-        textAfterSplit.push(
-            text.substring(previousEnd, newEnd)
-        );
-        previousEnd = newEnd;
-    }
-
-    return textAfterSplit;
-}
-
-function getResultClass(result) {
-    if (result["type"] === "filler")
-        return "filler"
-    if (result["in_slounik"])
-        return "slounik"
-    if (result["similar"].length === 0)
-        return "empty"
-    return "mistake"
-}
-
-function displayApiRequestResults(newResults) {
-    console.log(newResults)
-    request_results.push(...newResults);
-
-    let newResultsHtml = ""
-    let starting_position = request_results.length - newResults.length;
-    for (let i = starting_position; i < request_results.length; i++) {
-        let result = request_results[i];
-        let resultClass = getResultClass(result);
-
-        let onClickFunc = ""
-        if (resultClass !== "filler")
-            onClickFunc = ` onclick="displayTokenInfo(${i})"`
-
-        newResultsHtml += `<span id="res_span_${i}" class="res_t_${resultClass}"${onClickFunc}>${result["text"]}</span>`
-    }
-
-    results.innerHTML += newResultsHtml;
-}
-
-function displayApiRequestError() {
+function displayTokenInfoSlounik(element) {
     swal({
-        title: translations.alert_error,
-        text: translations.alert_error_api_request_message,
-        icon: "error"
+        title: element.innerHTML,
+        text: translations.alert_type_slounik,
     });
 }
 
-btn_submit.addEventListener("click", function () {
-    if (states.loading_result) {
-        return
-    }
-    states.loading_result = true;
-    console.log(states.loading_result)
-    updateSubmitButtonState();
+function displayTokenInfoEmpty(element) {
+    let alert_type_empty_between = translations.increase_distance;
+    if (states.last_used_method === 2)
+        alert_type_empty_between = translations.decrease_similarity;
 
-    clearOutput();
-    makeApiRequest().then(r => {
-        states.loading_result = false;
-        updateSubmitButtonState();
+    swal({
+        title: element.innerHTML,
+        text: translations.alert_type_empty_1 + alert_type_empty_between + translations.alert_type_empty_2,
     });
+}
+
+function displayTokenInfoMistake(element, tokenId) {
+    let tokenInfoMistakeBox = document.createElement("div");
+    let tokenInfoMistakeBoxInnerHTML = `
+        <span>${translations.alert_type_mistake}</span>
+        <div class="mt-2 text-start">
+    `;
+
+    let checkedAttribute = "";
+    if (element.innerHTML === request_results[tokenId]["text"])
+        checkedAttribute = " checked";
+
+    tokenInfoMistakeBoxInnerHTML += `
+        <div>
+            <input type="radio" name="radiogroup" id="radiogroup_initial"
+                   onclick="resetToken(${tokenId})"${checkedAttribute}>
+            <label for="radiogroup_initial">${translations.alert_type_mistake_initial_word}</label>
+        </div>
+    `;
+
+    for (let i = 0; i < request_results[tokenId]["similar"].length; i++) {
+        let checkedAttribute = "";
+        if (element.innerHTML === request_results[tokenId]["similar"][i][0])
+            checkedAttribute = " checked";
+
+        tokenInfoMistakeBoxInnerHTML += `
+            <div>
+                <input type="radio" name="radiogroup" id="radiogroup_${i}"
+                       onclick="changeTokenToSimilar(${tokenId}, ${i})"${checkedAttribute}>
+                <label for="radiogroup_${i}">
+                    ${request_results[tokenId]["similar"][i][0]} : ${request_results[tokenId]["similar"][i][1]}
+                </label>
+            </div>
+        `;
+    }
+
+    tokenInfoMistakeBox.innerHTML = tokenInfoMistakeBoxInnerHTML + "</div></div>";
+
+    swal({
+        title: request_results[tokenId]["text"],
+        content: tokenInfoMistakeBox,
+    });
+}
+
+function resetToken(tokenId) {
+    let element = document.getElementById(`res_span_${tokenId}`);
+    element.innerHTML = request_results[tokenId]["text"];
+    element.classList.remove("res_t_mistake_modified");
+}
+
+function changeTokenToSimilar(tokenId, similarId) {
+    let element = document.getElementById(`res_span_${tokenId}`);
+    element.innerHTML = request_results[tokenId]["similar"][similarId][0];
+    element.classList.add("res_t_mistake_modified");
+}
+
+function updateResultsButtonStates() {
+    if (states.loading_result || states.last_used_method === -1) {
+        btn_correct_all.setAttribute("disabled", "");
+        btn_rollback_corrections.setAttribute("disabled", "");
+        btn_save_to_file.setAttribute("disabled", "");
+    } else {
+        btn_correct_all.removeAttribute("disabled");
+        btn_rollback_corrections.removeAttribute("disabled");
+        btn_save_to_file.removeAttribute("disabled");
+    }
+}
+
+btn_correct_all.addEventListener("click", function () {
+});
+
+btn_rollback_corrections.addEventListener("click", function () {
+});
+
+btn_save_to_file.addEventListener("click", function () {
 });

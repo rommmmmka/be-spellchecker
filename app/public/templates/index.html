@@ -73,8 +73,12 @@
                             <input id="range" type="range" class="form-range w-100" min="1" max="5" value="1" disabled>
                         </div>
                     </div>
-                    <button type="button" class="btn btn-outline-primary" id="btn_submit"
-                            disabled>{{ correct_errors }}</button>
+                    <button type="button" class="btn btn-outline-primary" id="btn_submit" disabled>
+                        {{ correct_errors }}
+                    </button>
+                    <button type="button" class="btn btn-outline-danger" id="btn_cancel_request" style="display: none">
+                        {{ cancel_request }}
+                    </button>
                 </div>
             </div>
 
@@ -86,6 +90,17 @@
                         </span>
                         <span id="loading_animation" class="card-text placeholder-glow"></span>
                     </div>
+                </div>
+                <div class="card-footer d-flex justify-content-between">
+                    <button type="button" class="btn btn-outline-primary w-100" id="btn_correct_all"
+                            disabled>{{ correct_all }}
+                    </button>
+                    <button type="button" class="btn btn-outline-primary w-100 ms-2 me-2" id="btn_rollback_corrections"
+                            disabled>{{ rollback_corrections }}
+                    </button>
+                    <button type="button" class="btn btn-outline-primary w-100" id="btn_save_to_file"
+                            disabled>{{ save_to_file }}
+                    </button>
                 </div>
             </div>
         </div>
@@ -99,7 +114,7 @@
 <script src="{{ url_for('public.static', filename='scripts/base.js') }}"></script>
 <script src="{{ url_for('public.static', filename='scripts/translations/' + lang + '.js') }}"></script>
 <script src="{{ url_for('public.static', filename='scripts/form.js') }}"></script>
+<script src="{{ url_for('public.static', filename='scripts/api_request.js') }}"></script>
 <script src="{{ url_for('public.static', filename='scripts/results.js') }}"></script>
-<script src="{{ url_for('public.static', filename='scripts/info.js') }}"></script>
 </body>
 </html>

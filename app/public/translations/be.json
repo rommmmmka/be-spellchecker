@@ -5,6 +5,7 @@
   "choose_text": "Выберыце гатовы тэкст",
   "choose_method": "Выберыце метад пошуку падобных словаў",
   "correct_errors": "Выправіць памылкі",
+  "cancel_request": "Скасаваць запыт",
 
   "text_name_1": "Тэкст 1",
   "text_name_2": "Тэкст 2",
@@ -15,5 +16,9 @@
 
   "range_label_placeholder": "Спачатку выберыце метад",
   "range_label_type_1": "Максімальная адлегласць:",
-  "range_label_type_2": "Мінімальнае падабенства:"
+  "range_label_type_2": "Мінімальнае падабенства:",
+
+  "correct_all": "Выправіць усе памылкі",
+  "rollback_corrections": "Адкаціць усе выпраўленні",
+  "save_to_file": "Захаваць у файл"
 }

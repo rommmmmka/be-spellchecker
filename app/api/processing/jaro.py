@@ -12,9 +12,9 @@ def process_jaro(token: str, min_similarity: float) -> list[list[str, float]]:
         if similarity < min_similarity:
             continue
         if similarity == 1:
-            similar_words = [[flounik_form, similarity]]
+            similar_words = [[flounik_form, 1]]
             return similar_words
 
-        similar_words.append([flounik_form, similarity])
+        similar_words.append([flounik_form, round(similarity, 4)])
 
     return similar_words

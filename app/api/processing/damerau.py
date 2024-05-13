@@ -15,7 +15,7 @@ def process_damerau(token: str, max_distance: int) -> list[list[str, int]]:
         if distance > max_distance:
             continue
         if distance == 0:
-            similar_words = [[slounik_word, distance]]
+            similar_words = [[slounik_word, 0]]
             return similar_words
 
         similar_words.append([slounik_word, distance])

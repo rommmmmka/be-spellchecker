@@ -5,6 +5,7 @@
   "choose_text": "Select a pre-prepared text",
   "choose_method": "Select a method to search for similar words",
   "correct_errors": "Correct errors",
+  "cancel_request": "Cancel the request",
 
   "text_name_1": "Text 1",
   "text_name_2": "Text 2",
@@ -15,5 +16,9 @@
 
   "range_label_placeholder": "Select a method first",
   "range_label_type_1": "Maximum distance:",
-  "range_label_type_2": "Minimum similarity:"
+  "range_label_type_2": "Minimum similarity:",
+
+  "correct_all": "Correct all errors",
+  "rollback_corrections": "Rollback all corrections",
+  "save_to_file": "Save to file"
 }

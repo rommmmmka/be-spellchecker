@@ -11,14 +11,19 @@ const range_label_type_2 = document.getElementById("range_label_type_2");
 const range_value = document.getElementById("range_value");
 const range = document.getElementById("range");
 const btn_submit = document.getElementById("btn_submit");
+const btn_cancel_request = document.getElementById("btn_cancel_request");
 const results = document.getElementById("results");
 const results_block = document.getElementById("results_block");
 const loading_animation = document.getElementById("loading_animation");
+const btn_correct_all = document.getElementById("btn_correct_all");
+const btn_rollback_corrections = document.getElementById("btn_rollback_corrections");
+const btn_save_to_file = document.getElementById("btn_save_to_file");
 
 let states = {
     loading_texts: true,
     loading_result: false,
-    last_used_method: 1,
+    last_used_method: -1,
+    cancelling_request: false,
 };
 let texts = [];
 let request_results = [];

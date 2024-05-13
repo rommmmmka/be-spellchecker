@@ -1,14 +1,23 @@
 function updateSubmitButtonState() {
-    console.log(states.loading_result)
+    updateResultsButtonStates();
+
+    if (states.loading_result) {
+        btn_submit.setAttribute("style", "display: none;");
+        btn_cancel_request.removeAttribute("style");
+        btn_cancel_request.removeAttribute("disabled");
+        return;
+    }
+    btn_cancel_request.setAttribute("style", "display: none;");
+    btn_submit.removeAttribute("style");
+
     if (
         (textarea.value === "")
         || (btn_dropdown_method.innerHTML !== btn_method_1.innerHTML && btn_dropdown_method.innerHTML !== btn_method_2.innerHTML)
-        || (states.loading_result)
     ) {
         btn_submit.setAttribute("disabled", "");
-        return;
+    } else {
+        btn_submit.removeAttribute("disabled");
     }
-    btn_submit.removeAttribute("disabled");
 }
 
 function updateRangeValue() {
