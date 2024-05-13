@@ -19,6 +19,10 @@ a {
     background-color: #0b5ed7 !important;
 }
 
+.swal-text {
+    text-align: center;
+}
+
 .res_t_filler, .res_t_slounik, .res_t_empty, .res_t_mistake {
     white-space: pre-line;
 }
@@ -34,4 +38,13 @@ a {
 
 .res_t_mistake {
     text-shadow: 0px 0px 5px orange;
+}
+
+.res_t_mistake_modified {
+    text-shadow: 0px 0px 5px darkgreen !important;
+}
+
+.radio_buttons {
+    margin-top: 10px;
+    text-align: left;
 }
