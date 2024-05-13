@@ -1,0 +1,19 @@
+{
+  "title": "Spellchecker",
+  "enter_text_placeholder": "Enter text...",
+  "result_placeholder": "The results will be here...",
+  "choose_text": "Select a pre-prepared text",
+  "choose_method": "Select a method to search for similar words",
+  "correct_errors": "Correct errors",
+
+  "text_name_1": "Text 1",
+  "text_name_2": "Text 2",
+  "text_name_3": "Text 3",
+
+  "method_name_1": "Damerau-Levenshtein distance",
+  "method_name_2": "Jaro-Winkler similarity",
+
+  "range_label_placeholder": "Select a method first",
+  "range_label_type_1": "Maximum distance:",
+  "range_label_type_2": "Minimum similarity:"
+}
