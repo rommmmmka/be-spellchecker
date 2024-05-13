@@ -105,11 +105,11 @@ function displayApiRequestResults(newResults) {
         let result = request_results[i];
         let resultClass = getResultClass(result);
 
-        let onClickFunc = ""
+        let onClickFunc = "";
         if (resultClass !== "filler")
-            onClickFunc = ` onclick="displayTokenInfo(${i})"`
+            onClickFunc = ` onclick="displayTokenInfo(${i})"`;
 
-        newResultsHtml += `<span id="res_span_${i}" class="res_t_${resultClass}"${onClickFunc}>${result["text"]}</span>`
+        newResultsHtml += `<span id="res_span_${i}" class="res_t_${resultClass} res_t"${onClickFunc}>${result["text"]}</span>`;
     }
 
     results.innerHTML += newResultsHtml;

@@ -97,11 +97,47 @@ function updateResultsButtonStates() {
     }
 }
 
+function getTokenIdFromHtmlId(htmlId) {
+    return Number(htmlId.substring(9));
+}
+
 btn_correct_all.addEventListener("click", function () {
+    let elements = document.getElementsByClassName("res_t_mistake");
+    Array.from(elements).forEach(function(element) {
+        if (element.classList.contains("res_t_mistake_modified"))
+            return;
+
+        let tokenId = getTokenIdFromHtmlId(element.id);
+
+        if (element.innerHTML !== request_results[tokenId]["text"])
+            return;
+
+        changeTokenToSimilar(tokenId, 0);
+    });
 });
 
 btn_rollback_corrections.addEventListener("click", function () {
+    let elements = document.getElementsByClassName("res_t_mistake_modified");
+    Array.from(elements).forEach(function(element) {
+        let tokenId = getTokenIdFromHtmlId(element.id);
+        resetToken(tokenId);
+    });
 });
 
 btn_save_to_file.addEventListener("click", function () {
+    let text = "";
+    let elements = document.getElementsByClassName("res_t");
+    Array.from(elements).forEach(function(element) {
+        text += element.innerHTML;
+    });
+
+    let a = document.createElement("a");
+    a.href = window.URL.createObjectURL(
+        new Blob(
+            [text],
+            { type: "text/plain;charset=utf-8" },
+        )
+    );
+    a.download = "result.txt";
+    a.click();
 });
