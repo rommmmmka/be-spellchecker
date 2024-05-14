@@ -7,9 +7,9 @@
   "correct_errors": "Correct errors",
   "cancel_request": "Cancel the request",
 
-  "text_name_1": "Text 1",
-  "text_name_2": "Text 2",
-  "text_name_3": "Text 3",
+  "text_name_1": "The architect who created the silhouette of the Belarusian capital",
+  "text_name_2": "The Belarusian Church in London is nominated for the title of the best building in Europe",
+  "text_name_3": "What will be the royal palace in the Old Castle?",
 
   "method_name_1": "Damerau-Levenshtein distance",
   "method_name_2": "Jaro-Winkler similarity",

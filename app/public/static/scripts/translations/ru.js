@@ -14,4 +14,13 @@ let translations = {
 
     alert_type_mistake: "Этого слова нет в словаре, но в нём есть похожие на него слова:",
     alert_type_mistake_initial_word: "Изначальное слово",
+
+    copyright: "Текст взят с сайта zviazda.by",
+    author: "Автор текста",
+    authors_names: [
+        "Никита Щербаков",
+        "Нина Щербачевич",
+        "Маргарита Ушкевич"
+    ],
+    btn_visit_site: "Перейти на сайт",
 }

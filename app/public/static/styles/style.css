@@ -23,6 +23,14 @@ a {
     text-align: center;
 }
 
+.swal-button--visit {
+    background-color: darkgray;
+}
+
+.swal-button--visit:active, .swal-button--visit:hover {
+    background-color: #919191 !important;
+}
+
 .res_t_filler, .res_t_slounik, .res_t_empty, .res_t_mistake {
     white-space: pre-line;
 }

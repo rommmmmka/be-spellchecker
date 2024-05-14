@@ -44,7 +44,32 @@ async function loadPrepreparedTexts() {
     }
     states.loading_texts = false;
 }
+
 loadPrepreparedTexts();
+
+
+function displayTextCopyrightMessage(textId) {
+    let copyrightMessageBox = document.createElement("div");
+    copyrightMessageBox.innerHTML = `
+        <div>${translations.copyright}</div>
+        <div class="mt-2">${translations.author}: ${translations.authors_names[textId]}</div>
+    `;
+
+    swal({
+        content: copyrightMessageBox,
+        buttons: {
+            visit: {
+                text: translations.btn_visit_site,
+                value: "visit",
+            },
+            confirm: true,
+        }
+    })
+        .then((value) => {
+            if (value === "visit")
+                window.open(text_links[textId], '_blank').focus();
+        });
+}
 
 
 textarea.addEventListener("input", function () {
@@ -59,6 +84,7 @@ btn_preprepared_text_1.addEventListener("click", function () {
         textarea.scrollTop = 0;
         updateSubmitButtonState();
     }
+    displayTextCopyrightMessage(0);
 });
 btn_preprepared_text_2.addEventListener("click", function () {
     if (states.loading_texts) {
@@ -68,6 +94,7 @@ btn_preprepared_text_2.addEventListener("click", function () {
         textarea.scrollTop = 0;
         updateSubmitButtonState();
     }
+    displayTextCopyrightMessage(1);
 });
 btn_preprepared_text_3.addEventListener("click", function () {
     if (states.loading_texts) {
@@ -77,6 +104,7 @@ btn_preprepared_text_3.addEventListener("click", function () {
         textarea.scrollTop = 0;
         updateSubmitButtonState();
     }
+    displayTextCopyrightMessage(2);
 });
 
 btn_method_1.addEventListener("click", function () {

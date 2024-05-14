@@ -18,6 +18,11 @@ const loading_animation = document.getElementById("loading_animation");
 const btn_correct_all = document.getElementById("btn_correct_all");
 const btn_rollback_corrections = document.getElementById("btn_rollback_corrections");
 const btn_save_to_file = document.getElementById("btn_save_to_file");
+const text_links = [
+    "https://zviazda.by/be/news/20220121/1642766032-arhitektar-yaki-stvaryu-siluet-belaruskay-stalicy",
+    "https://zviazda.by/be/news/20181121/1542815962-belaruskaya-carkva-u-londane-naminavana-na-zvanne-naylepshaga-budynka",
+    "https://zviazda.by/be/news/20210504/1620146423-yaki-budze-karaleuski-palac-u-starym-zamku"
+]
 
 let states = {
     loading_texts: true,

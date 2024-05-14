@@ -14,4 +14,13 @@ let translations = {
 
     alert_type_mistake: "There is no such word in the dictionary but there are some similar words:",
     alert_type_mistake_initial_word: "Initial word",
+
+    copyright: "The source of the text is zviazda.by",
+    author: "Author",
+    authors_names: [
+        "Mikita Shcharbakou",
+        "Nina Shcharbachevich",
+        "Marharyta Ushkevich"
+    ],
+    btn_visit_site: "Visit site",
 }
