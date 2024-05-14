@@ -1,6 +1,4 @@
 function updateSubmitButtonState() {
-    updateResultsButtonStates();
-
     if (states.loading_result) {
         btn_submit.setAttribute("style", "display: none;");
         btn_cancel_request.removeAttribute("style");
@@ -41,10 +39,10 @@ async function loadPrepreparedTexts() {
         let response;
         do {
             response = await fetch(`/public/static/texts/${i + 1}.txt`);
-        } while (!response.ok)
+        } while (!response.ok);
         texts.push(await response.text());
     }
-    states.loading_texts = false
+    states.loading_texts = false;
 }
 loadPrepreparedTexts();
 

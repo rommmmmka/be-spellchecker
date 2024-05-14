@@ -85,7 +85,7 @@ function changeTokenToSimilar(tokenId, similarId) {
     element.classList.add("res_t_mistake_modified");
 }
 
-function updateResultsButtonStates() {
+function updateResultButtonsStates() {
     if (states.loading_result || states.last_used_method === -1) {
         btn_correct_all.setAttribute("disabled", "");
         btn_rollback_corrections.setAttribute("disabled", "");

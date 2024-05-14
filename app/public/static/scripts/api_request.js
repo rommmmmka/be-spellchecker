@@ -1,26 +1,3 @@
-function clearOutput() {
-    results.innerHTML = "";
-}
-
-function getRandomInt(min, max) {
-    const minCeiled = Math.ceil(min);
-    const maxFloored = Math.floor(max);
-    return Math.floor(Math.random() * (maxFloored - minCeiled + 1) + minCeiled);
-}
-
-function displayLoadingAnimation(size) {
-    let loadingAnimationHtml = "";
-    for (let i = 0; i < getRandomInt(10, 15); i++) {
-        loadingAnimationHtml += `<span class="placeholder col-${getRandomInt(1, 4)}"></span> `;
-    }
-    loading_animation.innerHTML = loadingAnimationHtml;
-    results_block.scrollTop = results_block.scrollHeight;
-}
-
-function hideLoadingAnimation() {
-    loading_animation.innerHTML = "";
-}
-
 async function makeApiRequest() {
     clearOutput();
     displayLoadingAnimation();
@@ -33,7 +10,7 @@ async function makeApiRequest() {
     for (let i = 0; i < textAfterSplit.length; i++) {
         if (states.cancelling_request) {
             states.cancelling_request = false;
-            return
+            return;
         }
 
         try {
@@ -49,7 +26,7 @@ async function makeApiRequest() {
 
             if (states.cancelling_request) {
                 states.cancelling_request = false;
-                return
+                return;
             }
 
             if (!response.ok)
@@ -64,6 +41,23 @@ async function makeApiRequest() {
         }
     }
     hideLoadingAnimation();
+}
+
+function clearOutput() {
+    results.innerHTML = "";
+}
+
+function displayLoadingAnimation(size) {
+    let loadingAnimationHtml = "";
+    for (let i = 0; i < getRandomInt(10, 15); i++) {
+        loadingAnimationHtml += `<span class="placeholder col-${getRandomInt(1, 4)}"></span> `;
+    }
+    loading_animation.innerHTML = loadingAnimationHtml;
+    results_block.scrollTop = results_block.scrollHeight;
+}
+
+function hideLoadingAnimation() {
+    loading_animation.innerHTML = "";
 }
 
 function splitText() {
@@ -88,18 +82,18 @@ function splitText() {
 
 function getResultClass(result) {
     if (result["type"] === "filler")
-        return "filler"
+        return "filler";
     if (result["in_slounik"])
-        return "slounik"
+        return "slounik";
     if (result["similar"].length === 0)
-        return "empty"
-    return "mistake"
+        return "empty";
+    return "mistake";
 }
 
 function displayApiRequestResults(newResults) {
     request_results.push(...newResults);
 
-    let newResultsHtml = ""
+    let newResultsHtml = "";
     let starting_position = request_results.length - newResults.length;
     for (let i = starting_position; i < request_results.length; i++) {
         let result = request_results[i];
@@ -125,15 +119,15 @@ function displayApiRequestError() {
 
 btn_submit.addEventListener("click", function () {
     if (states.loading_result) {
-        return
+        return;
     }
     states.loading_result = true;
-    updateSubmitButtonState();
+    updateButtonsStates();
 
     clearOutput();
     makeApiRequest().then(r => {
         states.loading_result = false;
-        updateSubmitButtonState();
+        updateButtonsStates();
     });
 });
 

@@ -27,3 +27,14 @@ let states = {
 };
 let texts = [];
 let request_results = [];
+
+function updateButtonsStates() {
+    updateSubmitButtonState();
+    updateResultButtonsStates();
+}
+
+function getRandomInt(min, max) {
+    const minCeiled = Math.ceil(min);
+    const maxFloored = Math.floor(max);
+    return Math.floor(Math.random() * (maxFloored - minCeiled + 1) + minCeiled);
+}
