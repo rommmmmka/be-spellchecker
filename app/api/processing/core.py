@@ -32,9 +32,9 @@ def convert_to_tokens_and_fillers(
 
         token_start = token.start_char
         token_end = token.end_char
-        while data[token_start].lower() not in ALPHABET:
+        while data[token_start].lower() not in ALPHABET and token_start <= token_end:
             token_start += 1
-        while data[token_end - 1].lower() not in ALPHABET:
+        while data[token_end - 1].lower() not in ALPHABET and token_start <= token_end:
             token_end -= 1
 
         fillers.append({"text": data[previous_end:token_start], "type": "filler"})
