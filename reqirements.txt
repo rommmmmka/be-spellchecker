@@ -1,5 +1,7 @@
 beautifulsoup4
 flask
 jellyfish
+jupyter
 lxml
+pandas
 stanza
